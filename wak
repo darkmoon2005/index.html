@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Quest Generator</title>
+</head>
+<body>
+  <h1>Daily Quest</h1>
+
+  <h2>Fragile Day Quests</h2>
+  <ul id="fragile-quests"></ul>
+  <button onclick="generateQuests('fragile')">Generate Fragile Day Quests</button>
+
+  <h2>Resilient Day Quests</h2>
+  <ul id="resilient-quests"></ul>
+  <button onclick="generateQuests('resilient')">Generate Resilient Day Quests</button>
+
+  <script>
+    // Array of daily quest options
+    const fragileQuests = [
+      "Meditate for 10 minutes.",
+      "Listen to calming music for 30 minutes.",
+      "Do a light stretching exercise.",
+      "Write down three things you're grateful for today.",
+      "Take a warm bath or shower.",
+      "Spend 15 minutes doing a hobby you enjoy."
+      // Add more quests here
+    ];
+
+    const resilientQuests = [
+      "Complete a 20-minute workout.",
+      "Read a motivational book or article.",
+      "Plan and prepare a healthy meal.",
+      "Write down one thing you want to achieve today and take a small step towards it.",
+      "Reach out to a friend or family member and check in on them.",
+      "Learn something new for 30 minutes."
+      // Add more quests here
+    ];
+
+    // Function to shuffle an array
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function generateQuests(type) {
+      let questArray;
+      let listElementId;
+
+      if (type === 'fragile') {
+        questArray = fragileQuests.slice(); // Copy array to not modify original
+        listElementId = 'fragile-quests';
+      } else if (type === 'resilient') {
+        questArray = resilientQuests.slice(); // Copy array to not modify original
+        listElementId = 'resilient-quests';
+      } else {
+        return; // Exit if invalid type
+      }
+
+      const listElement = document.getElementById(listElementId);
+      listElement.innerHTML = ''; // Clear previous quests
+
+      shuffleArray(questArray); // Shuffle the quest array
+
+      // Generate three random quests for the specified type
+      for (let i = 0; i < 3; i++) {
+        const quest = questArray[i];
+        const listItem = document.createElement('li');
+        listItem.textContent = quest;
+        listElement.appendChild(listItem);
+      }
+    }
+  </script>
+</body>
+</html>
